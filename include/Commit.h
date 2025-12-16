@@ -25,12 +25,18 @@ public :
 
 class Stage_Area{
 private:
-    std::map<std::string,std::string> add_stage;//name->sha
-    std::map<std::string , std::string> remove_stage;//name->sha
-
+    std::map<std::string, std::string> staged; // filename -> blobId
 public:
-    void add(const std::string& file_name);
+    void add(const std::string& file_name, const std::string& blob_sha);
     void remove(const std::string& file_name);
+    bool contains(const std::string& file_name) const;
+    bool empty() const;
+    void clear();
+
+    const std::map<std::string, std::string>& files() const;
+
+    std::string serialize() const;
+    //static Stage deserialize(const std::string& raw);
 };
 
 class Commit{
